@@ -19,7 +19,29 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$this->novelty();
+	}
+
+	public function novelty()
+	{
+		//test for novelty_model
+		$this->load->model('novelty_model','nov');
+		$res = $this->nov->getlist(1);
+		print_r($res);
+		echo '<br>';
+	}
+
+	public function todo()
+	{
+		//test for todo_model
+		$this->load->model('todo_model','todo');
+		$res = $this->todo->getlist(3);
+		print_r($res);
+		echo '<br>';
+		foreach($res as $item){
+			print_r($this->todo->getdetail($item->tid));
+			echo '<br>';
+		}
 	}
 }
 
