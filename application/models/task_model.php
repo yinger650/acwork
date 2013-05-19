@@ -9,7 +9,7 @@ class Task_model extends CI_Model {
     function post($taskinfo)
     {
         $sql = "INSERT INTO task
-            (uid, gid, fromuid, fathertid, name, content, remindline, alertline, deadline)
+            (uid, gid, fromuid, fathertid, name, `text`, remindline, alertline, deadline)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, FROM_UNIXTIME(?))";
         $arg = array(
             element('uid', $taskinfo, null),
@@ -17,7 +17,7 @@ class Task_model extends CI_Model {
             element('fromuid', $taskinfo, null),
             element('fathertid', $taskinfo, null),
             element('name', $taskinfo, null),
-            element('content', $taskinfo, null),
+            element('text', $taskinfo, null),
             element('remindline', $taskinfo, null),
             element('alertline', $taskinfo, null),
             element('deadline', $taskinfo, null),
@@ -36,6 +36,13 @@ class Task_model extends CI_Model {
     {
         $sql = "UPDATE task SET status = 'finished', ftime = ? WHERE tid = ?";
         $arg = array(time(), $tid);
+        $query = $this->db->query($sql, $arg);
+    }
+
+    function delay($tid, $newtime)
+    {
+        $sql = "UPDATE task SET deadline = ? WHERE tid = ?";
+        $arg = array($newtime, $tid);
         $query = $this->db->query($sql, $arg);
     }
 }

@@ -10,19 +10,25 @@ class Index extends CI_Controller {
 	public function index()
 	{
 		$uid = 1;
-		$this->load->model('user_model', 'user');
-		$userinfo = $this->user->getinfo($uid);
-		$this->load->model('novelty_model','nov');
-		$novelty = $this->nov->getlist($uid);
-		//print_r($novelty);
-		$this->load->model('todo_model','todo');
-		$todolist = $this->todo->getlist(1);
-		$data = array(
-			'user' => $userinfo,
-			'nov' => $novelty,
-			'todo' => $todolist,
-			);
-		$this->load->view('activity.php', $data);
+		if($uid!=0){
+			$this->load->model('user_model', 'user');
+			$userinfo = $this->user->getinfo($uid);
+			$this->load->model('novelty_model','nov');
+			$novelty = $this->nov->getlist($uid);
+			$this->load->model('todo_model','todo');
+			$todolist = $this->todo->getlist($uid);
+			$data = array(
+				'user' => $userinfo,
+				'nov' => $novelty,
+				'todo' => $todolist,
+				);
+			$this->load->view('activity.php', $data);
+		}
+		else{
+			$userinfo = NULL;
+			$novelty = NULL;
+			$todolist = NULL;
+		}
 	}
 
 	public function see()

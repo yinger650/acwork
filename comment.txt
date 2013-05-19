@@ -1,0 +1,13 @@
+comment(post传参)：
+
+评论：
+/ajax/comment/post
+参数uid($user->uid), fortype('demo'/'idea'), forid, text
+
+评分：
+/ajax/comment/mark
+参数uid($user->uid), fortype('demo'/'idea'), forid, mark('up','down','ignore')
+
+删除评论：
+/ajax/comment/delete
+参数cid

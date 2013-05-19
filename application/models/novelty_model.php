@@ -8,7 +8,7 @@ class Novelty_model extends CI_Model {
 
     function getdemo($uid, $offset=0, $rows=30)
     {
-        $sql = "SELECT 'demo' AS category, demo.did, demo.tid, task.gid, user.uid, user.nickname, user.portrait, task.name, task.gid, demo.text, demo.attachment, up.count AS up, down.count AS down, fircmt.nickname AS firname, fircmt.portrait AS firpt, fircmt.text AS fircmt, fircmt.ctime AS firtime, lstcmt.nickname AS lstname, lstcmt.portrait AS lstpt, lstcmt.text AS lstcmt, lstcmt.ctime AS lsttime, cmtnum.count AS cmtnum, demo.ctime, !ISNULL(mycomment.did) AS commented
+        $sql = "SELECT 'demo' AS category, demo.did AS forid, demo.tid, task.gid, user.uid, user.nickname, user.portrait, task.name, task.gid, demo.text, demo.attachment, up.count AS up, down.count AS down, fircmt.nickname AS firname, fircmt.portrait AS firpt, fircmt.text AS fircmt, fircmt.ctime AS firtime, lstcmt.nickname AS lstname, lstcmt.portrait AS lstpt, lstcmt.text AS lstcmt, lstcmt.ctime AS lsttime, cmtnum.count AS cmtnum, demo.ctime, !ISNULL(mycomment.did) AS commented
             FROM demo
             LEFT JOIN task ON demo.tid = task.tid
             LEFT JOIN allocate ON task.gid = allocate.gid AND task.uid = allocate.uid
@@ -63,7 +63,7 @@ class Novelty_model extends CI_Model {
 
     function getidea($uid, $offset=0, $rows=30)
     {
-        $sql = "SELECT 'idea' as category, idea.iid, idea.gid, user.uid, user.nickname, user.portrait, idea.text, idea.attachment, up.count AS up, down.count AS down, fircmt.nickname AS firname, fircmt.portrait AS firpt, fircmt.text AS fircmt, fircmt.ctime AS firtime, lstcmt.nickname AS lstname, lstcmt.portrait AS lstpt, lstcmt.text AS lstcmt, lstcmt.ctime AS lsttime, cmtnum.count AS cmtnum, idea.ctime, !ISNULL(mycomment.iid) AS commented
+        $sql = "SELECT 'idea' as category, idea.iid AS forid, idea.gid, user.uid, user.nickname, user.portrait, idea.text, idea.attachment, up.count AS up, down.count AS down, fircmt.nickname AS firname, fircmt.portrait AS firpt, fircmt.text AS fircmt, fircmt.ctime AS firtime, lstcmt.nickname AS lstname, lstcmt.portrait AS lstpt, lstcmt.text AS lstcmt, lstcmt.ctime AS lsttime, cmtnum.count AS cmtnum, idea.ctime, !ISNULL(mycomment.iid) AS commented
             FROM idea
             LEFT JOIN allocate ON idea.gid = allocate.gid
             LEFT JOIN (

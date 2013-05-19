@@ -1,7 +1,9 @@
 	$(document).ready(function(){
 		$("#opentodo").click(function(){
 			if ($("#opentodo").hasClass("show")) {
-				$("#opentodo").html("展开TODO List ▼");
+				$("#opentodo").html("展开TODO List <span class='badge badge-error'></span>▼");
+				i = $(".accordion-group").size();
+				$(".badge").html(i);
 				$("#opentodo").removeClass("show");
 				$(".notfirst").css("display","none");
 			} else {
@@ -10,6 +12,9 @@
 				$(".notfirst").css("display","block");
 			}
 		});
+		
+		i = $(".accordion-group").size();
+		$(".badge").html(i);
 
 	});
 	

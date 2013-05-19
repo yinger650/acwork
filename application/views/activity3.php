@@ -48,20 +48,19 @@
               <li class="">
                 <a href="./#">Project2</a>
               </li>
-			  
-              
-            </ul>
-            	<div id="userlogin" style="display:inline;">
-                <form class="form-inline pull-right" style="margin:0px 0px 0px;padding-top:2px;">
-                    <input type="text" class="input-small" style="width:130px;height:32px;" placeholder="邮箱">
-                    <input type="password" class="input-small" style="width:130px;height:32px;" placeholder="密码">
+              <li style="margin-top:6px;margin-bottom:-12px;">
+                <form class="form-inline">
+                    <input type="text" class="input-small" style="width:130px;height:32px;" placeholder="Email">
+                    <input type="password" class="input-small" style="width:130px;height:32px;" placeholder="password">
                     <label class="checkbox">
-                        <input type="checkbox"> 记住帐号
+                        <input type="checkbox"> remember me
                     </label>
-                    <button type="submit" class="btn">登陆</button>
-                    <button type="submit" href="#register" class="btn" data-toggle="modal">注册</button>
-                </form>              
-            	</div>
+                    <button type="submit" class="btn">login</button>
+                    <button type="submit" href="#register" class="btn" data-toggle="modal">register</button>
+                    </form>              
+                </li>
+
+            </ul>
           </div>
         </div>
       </div>
@@ -74,15 +73,15 @@
                     <a class="close" data-dismiss="alert">×</a>
                     Notice
                 </div>
-                <button id="opentodo" class="btn">展开TODO List <span class="badge badge-error"></span>▼</button>
+                <button id="opentodo" class="btn">展开TODO List ▼</button>
                 <button data-toggle="modal" href="#newTask" class="btn btn-primary">新建任务</button>
                 <div class="well deadline-area">
                     <div class="accordion" id="accordion2">
                     <?php foreach($todo as $key=>$item){ ?>
-                        <div class="accordion-group <?php if($key!=0) echo 'notfirst';?> <?php date_default_timezone_set('Asia/Shanghai'); if (date('Y-m-d H:i:s')>$item->deadline) echo 'alert-error'?>">
+                        <div class="accordion-group <?php if($key!=0) echo 'notfirst';?>">
                             <div class="accordion-heading">
                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#<?php echo 'collapse'.$key;?>">
-                                      <strong><?php echo $item->deadline.' '.$item->name;?></strong>
+                                      <?php echo $item->deadline.' '.$item->name;?>
                                 </a>
                               </div>
                               <div id="<?php echo 'collapse'.$key;?>" class="accordion-body <?php if($key==0) echo 'in';?> collapse" <?php if($key==0) echo 'style="height: auto;"';?>>
@@ -91,6 +90,7 @@
                                     <a class="btn btn-mini control-todo">延期</a>
                                     <a class="btn btn-mini control-todo">定稿</a>
                                     <a class="btn btn-mini control-todo">更新</a>
+                                
                                     <?php echo $item->content;?>
                                 </div>
                              </div>
@@ -102,10 +102,7 @@
   <!-- ideas
     ================================================== -->
                 <?php foreach($nov as $key => $item){ ?>
-                <div class="well <?php echo $item->category ?>">
-                	<div class="container-fluid">
-                		<strong>用户名</strong>
-                	</div>
+                <div class="well idea">
                      <div class="container-fluid">
                      <div class="row-fluid">
                         <div class="span2 avatar">
@@ -152,11 +149,8 @@
                                     echo $item->lstname.':'.$item->lstcmt.'('.$item->lsttime.')</p>';
                                 }
                             ?>
-                            <form method="post" action="<?php echo base_url("ajax/comment/post")?>">
-                            	<input type="hidden" name="uid" value="<?php echo $user->uid;?>">
-                            	<input type="hidden" name="fortype" value="<?php echo $item->category;?>">
-                            	<input type="hidden" name="forid" value="<?php echo $item->forid;?>">
-                                <input type="text" name="text" class="comment" style="height:25px;margin-bottom:0px;">
+                            <form>
+                                <input type="text" class="comment" style="height:25px;margin-bottom:0px;">
                                 <button type="submit" class="btn">提交</button>
                             </form>
                         </div>         
@@ -167,6 +161,8 @@
             </div>
         </div>
 
+<!--======新建任务页面===============================
+-->
         <div class="modal hide fade" id="newTask" style="display:none;">
             <form class="form-horizontal">
                 <div class="modal-header">
@@ -207,8 +203,8 @@
             </form>
         </div>
     </div>
-    
-    <!--===================用户注册页面===========================
+
+<!--===================用户注册页面===========================
 -->
         <div class="modal hide fade" id="register" style="display:none; position: 100, 0">
             <form class="form-horizontal">
@@ -263,7 +259,8 @@
             </form>
         </div>
     </div>
-    
+
+
 
     <!-- Le javascript
     ================================================== -->

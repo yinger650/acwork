@@ -24,6 +24,11 @@
 	margin-top:20px;	
 }
 
+.demo{
+	margin-top:20px;
+	background-color:#fcf8e3;	
+}
+
 .avatar{
 	height:100px;
 	background-color:white;
@@ -42,5 +47,6 @@
 	margin-top:-2px;
 }
 
-
-	
+.alert-error a{
+	color:#b94a48;
+}
