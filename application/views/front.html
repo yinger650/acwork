@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Assign a New Task</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    
+    <script type="text/javascript" src="jquery-1.9.1.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="span8">
+    <div class="accordion" id="accordion2">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">Task one</a>
+            </div>
+            <div id="collapseOne" class="accordion-body collapse" style="height:0px;">
+                <div class="accordion-inner">Content one</div>
+            </div>
+        </div>
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2"
+                    href="#collapseTwo">Task two</a>
+            </div>
+            <div id="collapseTwo" class="accordion-body collapse" style="height:0px;">
+                <div class="accordion-inner">Content two</div>
+            </div>
+        </div>
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2"
+                    href="#collapseThree">Task three</a>
+            </div>
+            <div id="collapseThree" class="accordion-body collapse" style="height:0px;">
+                <div class="accordion-inner">Content three</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+    <div class="span4">
+
+<script type="text/javascript">
+$("#newTask").modal({
+     backdrop:true,
+     keyboard:true,
+     show:true
+ });
+</script>
+
+<div class="modal hide fade" id="myModal" style="display:none;">
+    <form class="form-horizontal">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal"></a>
+        <h3><center>New Task</center></h3>
+    </div>
+    <div class="modal-body">
+        <div class="control-group">
+            <label class="control-label" for="focusedInput">Task Name</label>
+            <div class="controls">
+                <input class="input-xlarge focused" id="focusedInput" type="text">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="focusedInput">deadline</label>
+            <div class="controls">
+                <input class="input-xlarge focused" id="focusedInput" type="text">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="focusedInput">Assign To</label>
+            <div class="controls">
+                <input class="input-xlarge focused" id="focusedInput" type="text">
+            </div>
+        </div>
+    <div>
+        <label class="control-label" for="textarea">Content</label>
+        <div class="controls">
+            <textarea class="input-xlarge" id="textarea" row="5" style="height:200px;"></textarea>
+        </div>
+    </div>
+
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn btn-primary">send</a>
+        <a href="#" class="btn">cancel</a>
+    </div>
+</form>
+</div>
+
+<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-large">New Task</a>
+<hr>
+
+
+
+
+<ul id="tab" class="nav nav-tabs">
+  <li class="dropdown active">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        Aggregate <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+        <li>
+            <a href="#dropdown1" data-toggle="tab">Three</a>
+        </li>
+        <li>
+            <a href="#dropdown2" data-toggle="tab">four</a>
+        </li>
+    </ul>
+  </li>
+</ul>
+
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade" id="dropdown1">
+        <p>What's up</p>
+    </div>
+    <div class="tab-pane fade" id="dropdown2">
+        <p>Fantastic baby</p>
+    </div>
+</div>
+<script>
+  $(function () {
+    $('.tabs a:last').tab('show')
+  })
+</script>
+
+<hr>
+<div style="height:200px;width:250px;float:left;" class="well">
+    <div  width="100">
+        <img src="images.jpeg" height="150" width="100" />
+        <p>Name</p>
+        <p>Dept</p>
+
+    </div>
+</div>
+
+</div>
+
+  </body>
+</html>
+
+
+
+
+<!--
+<div class="span8">
+<form class="form-horizontal">
+    <fieldset>
+        <legend><b><center>New Task</center></b></legend>
+    <div class="control-group">
+        <label class="control-label" for="focusedInput">Task Name</label>
+        <div class="controls">
+            <input class="input-xlarge focused" id="focusedInput" type="text">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="focusedInput">deadline</label>
+        <div class="controls">
+            <input class="input-xlarge focused" id="focusedInput" type="text">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="focusedInput">Assign To</label>
+        <div class="controls">
+            <input class="input-xlarge focused" id="focusedInput" type="text">
+        </div>
+    </div>
+    <div>
+        <label class="control-label" for="textarea">Content</label>
+        <div class="controls">
+            <textarea class="input-xlarge" id="textarea" row="5" style="height:200px;"></textarea>
+        </div>
+    </div>
+    <hr>
+    <div>
+    <center>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="btn">Cancel</button>
+    </center>
+    </div>
+</fieldset>
+</form>
+</div>
+
+-->

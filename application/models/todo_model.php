@@ -6,14 +6,14 @@ class Todo_model extends CI_Model {
         parent::__construct();
     }
 
-    function getlist($uid, $start=0, $offset=0)
+    function getlist($uid, $offset=0, $rows=30)
     {
-        $sql = "SELECT task.uid, tid, fromuid, name, deadline
+        $sql = "SELECT task.uid, fromuid, fathertid, name, content, remindline, alertline, deadline, task.ctime
             FROM user LEFT JOIN task ON user.uid = task.uid
-            WHERE task.status = 'live' AND (task.uid = ? OR task.fromuid = ?)";
-        if ($num != 0)
-            $sql .= " LIMIT ".$start.", ".$offset;
-        $arg = array($uid, $uid);
+            WHERE task.status = 'live' AND (task.uid = ? OR task.fromuid = ?)
+            ORDER BY task.deadline
+            LIMIT ?, ?";
+        $arg = array($uid, $uid, $offset, $rows);
         $query = $this->db->query($sql, $arg);
         $res = $query->result();
         return $res;

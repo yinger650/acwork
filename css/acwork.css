@@ -1,0 +1,46 @@
+@CHARSET "UTF-8";
+
+.deadline-area {
+	display: block;
+	margin-top:2px;
+	margin-bottom:0px;
+	padding: 0px;
+	
+}
+
+.notfirst {
+	display:none;	
+}
+
+.show {
+	display:inline-block;
+}
+	
+.accordion{
+	margin-bottom:0px;	
+}
+
+.idea{
+	margin-top:20px;	
+}
+
+.avatar{
+	height:100px;
+	background-color:white;
+}
+
+.idea-comment{
+	height:100px;
+}
+
+.comment{	
+	width:80%;
+}
+
+.control-todo{
+	float:right;
+	margin-top:-2px;
+}
+
+
+	
