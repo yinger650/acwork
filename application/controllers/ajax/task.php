@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
-class Task extends CI_Model {
+class Task extends CI_Controller {
     
     function __construct()
     {
@@ -9,16 +9,22 @@ class Task extends CI_Model {
     function post()
     {
         $name = $this->input->post('name');
+        $fromuid = $this->input->post('uid');
         $deadline = $this->input->post('deadline');
         $to = $this->input->post('to');
-        $text = $this->input->post('text');
+        $content = $this->input->post('content');
         $this->load->model('user_model','user');
         $uid = $this->user->nametouid($to);
         $this->load->model('task_model','task');
         $taskinfo = array(
-                ''
+            'uid' => $uid,
+            'name' => $name,
+            'fromuid' => $fromuid,
+            'content' => $content,
+            'deadline' => $deadline,
             );
-        $this->task->post();
+        $this->task->post($taskinfo);
+        redirect();
     }
     
     function kill()
@@ -45,3 +51,4 @@ class Task extends CI_Model {
         $this->task->delay($pid, $newtime);
         redirect();
     }
+}

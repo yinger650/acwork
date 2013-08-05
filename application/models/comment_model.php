@@ -34,16 +34,15 @@ class Comment_model extends CI_Model {
 
     public function getmark($fortype, $forid)
     {
-        $sql = "SELECT up.count AS up, down.count AS down
+        $sql = "SELECT up.count AS upcount, down.count AS downcount
             FROM (
-                SELECT count(cid) AS count FROM comment
+                SELECT cid, count(cid) AS count FROM comment
                 WHERE fortype=? AND forid=? AND mark='up'
                 ) AS up
-            FULL JOIN (
-                SELECT count(cid) AS count FROM comment
+            LEFT JOIN (
+                SELECT cid, count(cid) AS count FROM comment
                 WHERE fortype=? AND forid=? AND mark='down'
-                ) AS down
-            ";
+                ) AS down ON up.cid = down.cid";
         $arg = array($fortype, $forid, $fortype, $forid);
         $query = $this->db->query($sql, $arg);
         $res = $query->row();

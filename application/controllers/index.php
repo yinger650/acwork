@@ -9,12 +9,16 @@ class Index extends CI_Controller {
 
 	public function index()
 	{
-		$uid = 1;
+		$uid = 2;
 		if($uid!=0){
 			$this->load->model('user_model', 'user');
 			$userinfo = $this->user->getinfo($uid);
 			$this->load->model('novelty_model','nov');
 			$novelty = $this->nov->getlist($uid);
+			$this->load->model('comment_model','cmt');
+			foreach($novelty as $key => $item){
+				$item->cmt = $this->cmt->getcmt($item->category, $item->forid);
+			}
 			$this->load->model('todo_model','todo');
 			$todolist = $this->todo->getlist($uid);
 			$data = array(

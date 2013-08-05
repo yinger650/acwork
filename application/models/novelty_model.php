@@ -67,7 +67,7 @@ class Novelty_model extends CI_Model {
             FROM idea
             LEFT JOIN allocate ON idea.gid = allocate.gid
             LEFT JOIN (
-                SELECT forid AS iid 
+                SELECT DISTINCT forid AS iid 
                 FROM comment 
                 WHERE comment.uid = ? AND fortype='idea'
                 ) AS mycomment ON idea.iid = mycomment.iid
@@ -106,11 +106,10 @@ class Novelty_model extends CI_Model {
                 LIMIT 1
                 ) AS lstcmt ON idea.iid = lstcmt.iid
             LEFT JOIN user ON idea.uid = user.uid
-            LEFT JOIN comment ON comment.fortype='iid' AND comment.forid=idea.iid
-            WHERE allocate.uid=?
+            WHERE allocate.uid=? OR idea.uid=?
             ORDER BY commented, idea.ctime DESC
             LIMIT ? , ?";
-        $arg = array($uid, $uid, $offset, $rows);
+        $arg = array($uid, $uid, $uid, $offset, $rows);
         $query = $this->db->query($sql, $arg);
         $idea = $query->result();
         return $idea;

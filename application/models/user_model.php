@@ -17,4 +17,13 @@ class User_model extends CI_Model {
         return $res;
     }
 
+    function nametouid($name)
+    {
+        $sql = "SELECT uid FROM user WHERE nickname=?";
+        $arg = array($name);
+        $query = $this->db->query($sql, $arg);
+        $res = $query->row()->uid;
+        return $res;
+    }
+
 }

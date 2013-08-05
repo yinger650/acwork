@@ -52,15 +52,17 @@
               
             </ul>
             	<div id="userlogin" style="display:inline;">
+            <!--
                 <form class="form-inline pull-right" style="margin:0px 0px 0px;padding-top:2px;">
-                    <input type="text" class="input-small" style="width:130px;height:32px;" placeholder="邮箱">
-                    <input type="password" class="input-small" style="width:130px;height:32px;" placeholder="密码">
+                    <input type="text" class="input-small" style="width:130px;height:32px;" name="usernmae" placeholder="用户">
+                    <input type="password" class="input-small" style="width:130px;height:32px;" name="password" placeholder="密码">
                     <label class="checkbox">
                         <input type="checkbox"> 记住帐号
                     </label>
                     <button type="submit" class="btn">登陆</button>
                     <button type="submit" href="#register" class="btn" data-toggle="modal">注册</button>
-                </form>              
+                </form>
+            -->
             	</div>
           </div>
         </div>
@@ -72,25 +74,25 @@
             <div class="span10 offset1">
                 <div class="alert">
                     <a class="close" data-dismiss="alert">×</a>
-                    Notice
+                    <?php echo 'Hello! '.$user->nickname?>
                 </div>
                 <button id="opentodo" class="btn">展开TODO List <span class="badge badge-error"></span>▼</button>
-                <button data-toggle="modal" href="#newTask" class="btn btn-primary">新建任务</button>
+                <button data-toggle="modal" href="#newTask" class="btn btn-primary">新任务</button>
+                <button data-toggle="modal" href="#newIdea" class="btn">新点子</button>
                 <div class="well deadline-area">
                     <div class="accordion" id="accordion2">
                     <?php foreach($todo as $key=>$item){ ?>
                         <div class="accordion-group <?php if($key!=0) echo 'notfirst';?> <?php date_default_timezone_set('Asia/Shanghai'); if (date('Y-m-d H:i:s')>$item->deadline) echo 'alert-error'?>">
                             <div class="accordion-heading">
                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#<?php echo 'collapse'.$key;?>">
-                                      <strong><?php echo $item->deadline.' '.$item->name;?></strong>
+                                      <strong><?php echo "[".$item->name."] 截止于 ".$item->deadline.' ';?></strong>
                                 </a>
                               </div>
                               <div id="<?php echo 'collapse'.$key;?>" class="accordion-body <?php if($key==0) echo 'in';?> collapse" <?php if($key==0) echo 'style="height: auto;"';?>>
                                 <div class="accordion-inner">
-                                    <a class="btn btn-mini control-todo">流产</a>
-                                    <a class="btn btn-mini control-todo">延期</a>
-                                    <a class="btn btn-mini control-todo">定稿</a>
-                                    <a class="btn btn-mini control-todo">更新</a>
+                                    <a class="btn btn-mini control-todo giveup" >流产</a>
+                                    <a class="btn btn-mini control-todo delay">延期</a>
+                                    <a class="btn btn-mini control-todo finish">完成</a>
                                     <?php echo $item->content;?>
                                 </div>
                              </div>
@@ -104,7 +106,7 @@
                 <?php foreach($nov as $key => $item){ ?>
                 <div class="well <?php echo $item->category ?>">
                 	<div class="container-fluid">
-                		<strong>用户名</strong>
+                		<strong><?php echo $item->nickname; ?></strong>
                 	</div>
                      <div class="container-fluid">
                      <div class="row-fluid">
@@ -113,10 +115,11 @@
                         </div>
                         <div class="span10 idea-comment">
                             <?php
-                                echo '<p>(这是一个'.$item->category.')</p>';
+                                echo '<p>'.'('.$item->ctime.')</p>';
+                                echo '<p>'.$item->text;
+                                //echo '<p>(这是一个'.$item->category.')</p>';
                                 if($item->category=='demo')
-                                    echo '<p>demo所对应的task名：'.$item->name.'</p>';
-                                echo '<p>'.$item->nickname.':'.$item->text.'('.$item->ctime.')</p>';
+                                    echo '<p>(demo所对应的task名：'.$item->name.')</p>';
                             ?>
                         </div>            
                     </div>
@@ -124,32 +127,19 @@
                                         
                     <div class="row-fluid">
                         <div class="span2">
-                        <a class="pull-left">顶(<?php echo isset($item->up)?$item->up:0; ?>)</a>
-                        <a class="pull-right">踩(<?php echo isset($item->down)?$item->down:0; ?>)</a>
+                        <a href="<?php echo base_url('ajax/comment/mark?uid='.$user->uid.'&fortype='.$item->category.'&forid='.$item->forid.'&mark="up"')?>" class='pull-left'>顶(<?php echo isset($item->up)?$item->up:0; ?>)</a>
+                        <a href="<?php echo base_url('ajax/comment/mark?uid='.$user->uid.'&fortype='.$item->category.'&forid='.$item->forid.'&mark="down"')?>" class="pull-right">踩(<?php echo isset($item->down)?$item->down:0; ?>)</a>
                         </div>
                         <div class="span10">
                             <?php
-
-                                if($item->cmtnum>0){
+                                foreach($item->cmt as $no => $say){
                                     $image_properties = array(
-                                        'src' => $item->firpt,
+                                        'src' => isset($cmt->portrait)?base_url($cmt->portrait):base_url('img/default/userportrait.jpg'),
                                         'width' => '30',
                                     );
                                     echo '<p>';
                                     echo img($image_properties);
-                                    echo $item->firname.':'.$item->fircmt.'('.$item->firtime.')</p>';
-                                }
-                                if($item->cmtnum>2){
-                                    echo '<p><a>显示另外'.($item->cmtnum-2).'条回复</a></p>';
-                                }
-                                if($item->cmtnum>1){
-                                    $image_properties = array(
-                                        'src' => $item->lstpt,
-                                        'width' => '30',
-                                    );
-                                    echo '<p>';
-                                    echo img($image_properties);
-                                    echo $item->lstname.':'.$item->lstcmt.'('.$item->lsttime.')</p>';
+                                    echo $say->nickname.':'.$say->text.'('.$say->ctime.')</p>';
                                 }
                             ?>
                             <form method="post" action="<?php echo base_url("ajax/comment/post")?>">
@@ -166,9 +156,11 @@
                 <?php } ?>
             </div>
         </div>
-
+    <!--===================任务页面===========================
+-->
         <div class="modal hide fade" id="newTask" style="display:none;">
-            <form class="form-horizontal">
+            <form class="form-horizontal" method="post" action="<?php echo base_url("ajax/task/post")?>">
+            	<input type="hidden" name="uid" value=<?php echo $user->uid?>>
                 <div class="modal-header">
                     <a class="close" data-dismiss="modal">×</a>
                     <h3><center>新建任务</center></h3>
@@ -177,37 +169,63 @@
                     <div class="control-group">
                         <label class="control-label" for="focusedInput">任务名称</label>
                         <div class="controls">
-                            <input class="input-xlarge focused" id="focusedInput" type="text">
+                            <input class="input-xlarge focused" id="focusedInput" type="text" name="name">
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="focusedInput">截止时间</label>
                         <div class="controls">
-                            <input class="input-xlarge focused" id="focusedInput" type="text">
+                            <input class="input-xlarge focused" id="focusedInput" type="text" name="deadline">
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="focusedInput">分配给</label>
                         <div class="controls">
-                            <input class="input-xlarge focused" id="focusedInput" type="text">
+                            <input class="input-xlarge focused" id="focusedInput" type="text" name="to">
                         </div>
                     </div>
                     <div>
                         <label class="control-label" for="textarea">内容</label>
                         <div class="controls">
-                            <textarea class="input-xlarge" id="textarea" row="5" style="height:200px;"></textarea>
+                            <textarea class="input-xlarge" id="textarea" row="5" style="height:200px;" name="content"></textarea>
                         </div>
                     </div>
             
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn btn-primary">提交</a>
+                    <button class="btn btn-primary" type="submit">提交</button>
                     <a href="#" class="btn" data-dismiss="modal">取消</a>
                 </div>
             </form>
         </div>
     </div>
     
+    <!--===================新点子页面===========================
+-->
+        <div class="modal hide fade" id="newIdea" style="display:none;">
+            <form class="form-horizontal" method="post" action="<?php echo base_url("ajax/idea/post");?>">
+            	<input type="hidden" name="uid" value=<?php echo $user->uid?>>
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal">×</a>
+                    <h3><center>新点子</center></h3>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <label class="control-label" for="textarea">内容</label>
+                        <div class="controls">
+                            <textarea class="input-xlarge" id="textarea" row="5" style="height:200px;" name="text"></textarea>
+                        </div>
+                    </div>
+            
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                    <a href="#" class="btn" data-dismiss="modal">取消</a>
+                </div>
+            </form>
+        </div>
+    </div>    
+  
     <!--===================用户注册页面===========================
 -->
         <div class="modal hide fade" id="register" style="display:none; position: 100, 0">

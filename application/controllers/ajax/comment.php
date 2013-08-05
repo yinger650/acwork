@@ -40,10 +40,10 @@ class Comment extends CI_Controller {
 
     function mark()
     {
-        $uid = $this->input->post('uid');
-        $fortype = $this->input->post('fortype');
-        $forid = $this->input->post('forid');
-        $mark = $this->input->post('mark');
+        $uid = $this->input->get('uid');
+        $fortype = $this->input->get('fortype');
+        $forid = $this->input->get('forid');
+        $mark = $this->input->get('mark');
         $this->load->model('comment_model');
         $this->comment_model->mark($uid, $fortype, $forid, $mark);
         $res = json_encode($this->comment_model->getmark($fortype, $forid));
